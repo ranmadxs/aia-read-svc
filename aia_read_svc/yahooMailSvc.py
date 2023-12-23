@@ -5,21 +5,13 @@ from email.header    import Header
 from email.mime.text import MIMEText
 from repositories.aiaRepo import AIAMessageRepository
 from email.header import decode_header
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-import selenium.webdriver.chrome.options
 from datetime import datetime
 import random
 import time
 import csv
-from selenium.common.exceptions import TimeoutException
-from dotenv import load_dotenv
 import os
 from .numbers_to_letters import leer_decenas
-
+from dotenv import load_dotenv
 load_dotenv()
 #driver = webdriver.Firefox()
 from kafka.Queue import QueueConsumer, QueueProducer
@@ -38,7 +30,6 @@ class YahooMail:
         queueConsumer = QueueConsumer(self.topic_consumer)
         queueConsumer.listen(self.callback)
 
-    #
     def callback(self, msgDict):
         text = "Llegó un mensaje!"
         print(text)
@@ -78,6 +69,11 @@ class YahooMail:
         })
         sendObject['id'] = str(id)
         print(sendObject)
+        #lo de abajo es una mejora que debo testear
+        #data = json.dumps(sendObject)
+        #data = data.replace("'", '\\"')
+        #data = data.replace('"', '\\"')
+        #self.queueProducer.send(data)
         self.queueProducer.send(sendObject)
         self.queueProducer.flush()        
 

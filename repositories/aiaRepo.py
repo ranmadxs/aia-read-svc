@@ -12,6 +12,16 @@ class AIAMessageRepository:
     self.aiaDB = connectiondmr["aia-db"]
 
 
+  def insertAIABreadcrumb(self, aiaBreadcrumb):
+      _id = self.aiaDB["aIABreadcrumb"].insert_one(aiaBreadcrumb)
+      return _id.inserted_id
+
+
   def insertAIAMessage(self, aiaMessage):
       _id = self.aiaDB["aIAMessage"].insert_one(aiaMessage)
       return _id.inserted_id
+  
+  def insertAIAReadMessage(self, aiaMessage):
+      _id = self.aiaDB["aIAReadMessage"].insert_one(aiaMessage)
+      return _id.inserted_id
+  

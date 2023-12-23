@@ -6,14 +6,13 @@ from simon.accounts.pages import LoginPage
 from simon.chat.pages import ChatPage
 from simon.chats.pages import PanePage
 from simon.header.pages import HeaderPage
-
-
 from simon.accounts.pages import LoginPage
 from simon.header.pages import HeaderPage
 from simon.pages import BasePage
 #poetry run pytest tests/test_whatsapp.py::test_send_msg -s
 def test_send_msg():
-    pywhatkit.sendwhatmsg_instantly("+56975858852", "Este mensaje viene del pasado y se proyecta en el futuro", 10, True, 5)
+    #pywhatkit.sendwhatmsg_instantly("+56975858852", "Este mensaje viene del pasado y se proyecta en el futuro", 10, True, 5)
+    pywhatkit.sendwhatmsg_instantly("+56975858852", "Este mensaje viene del pasado y se proyecta en el futuro")
 
 #poetry run pytest tests/test_whatsapp.py::test_read_msg  -s
 def test_read_msg():
