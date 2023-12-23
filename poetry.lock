@@ -8,7 +8,7 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "anyio"
-version = "4.1.0"
+version = "4.2.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
 category = "main"
 optional = false
@@ -91,7 +91,7 @@ schema-registry = ["requests"]
 
 [[package]]
 name = "coverage"
-version = "7.3.2"
+version = "7.3.4"
 description = "Code coverage measurement for Python"
 category = "main"
 optional = false
@@ -227,7 +227,7 @@ rapidfuzz = ">=3.1.0,<4.0.0"
 
 [[package]]
 name = "lxml"
-version = "4.9.3"
+version = "4.9.4"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
 category = "main"
 optional = false
@@ -237,7 +237,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
 cssselect = ["cssselect (>=0.7)"]
 html5 = ["html5lib"]
 htmlsoup = ["beautifulsoup4"]
-source = ["Cython (>=0.29.35)"]
+source = ["Cython (==0.29.37)"]
 
 [[package]]
 name = "mouseinfo"
@@ -262,7 +262,7 @@ python-versions = ">=3.9"
 
 [[package]]
 name = "openai"
-version = "1.3.8"
+version = "1.6.1"
 description = "The official Python library for the openai API"
 category = "main"
 optional = false
@@ -275,7 +275,7 @@ httpx = ">=0.23.0,<1"
 pydantic = ">=1.9.0,<3"
 sniffio = "*"
 tqdm = ">4"
-typing-extensions = ">=4.5,<5"
+typing-extensions = ">=4.7,<5"
 
 [package.extras]
 datalib = ["numpy (>=1)", "pandas-stubs (>=1.1.0.11)", "pandas (>=1.2.3)"]
@@ -347,7 +347,7 @@ pytweening = ">=1.0.4"
 
 [[package]]
 name = "pydantic"
-version = "2.5.2"
+version = "2.5.3"
 description = "Data validation using Python type hints"
 category = "main"
 optional = false
@@ -355,7 +355,7 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 annotated-types = ">=0.4.0"
-pydantic-core = "2.14.5"
+pydantic-core = "2.14.6"
 typing-extensions = ">=4.6.1"
 
 [package.extras]
@@ -363,7 +363,7 @@ email = ["email-validator (>=2.0.0)"]
 
 [[package]]
 name = "pydantic-core"
-version = "2.14.5"
+version = "2.14.6"
 description = ""
 category = "main"
 optional = false
@@ -671,8 +671,8 @@ python-versions = ">=3.6"
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.11.4,<3.12"
-content-hash = "ffda252beff8b4551c2524c9f4bf237ebd3e71346f9bcf80a4b7975bbba10a84"
+python-versions = ">=3.11.2,<3.12"
+content-hash = "b85fd735fa72473d28a045eb013537da5b60eb2c3febf60f12f3c24dd3c1c179"
 
 [metadata.files]
 annotated-types = []

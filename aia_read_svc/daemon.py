@@ -16,7 +16,7 @@ def run():
     )
     #parser.add_argument(dest="users", nargs=ONE_OR_MORE, type="User", help="your name")
     #args = parser.parse_args()
-    print ("XDDDDD GET MAILS DAEMON")
+    print ("STARTING READ SVC DAEMON")
     readSvc = ReadSvc(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'], os.environ['CLOUDKAFKA_TOPIC_CONSUMER'], __version__)    
     readSvc.readDaemon() 
 
