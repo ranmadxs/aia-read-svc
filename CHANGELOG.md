@@ -5,11 +5,11 @@ runme:
 ---
 # UNRELEASE
 
-0.2.0 05-ene-2024
+# RELEASE
+
+0.2.2 10-ene-2024
 
 - Feature: Send Img (WH40K Unit) to aia-device
-
-# RELEASE
 
 0.1.0 First Version 28-dic-2023
 
