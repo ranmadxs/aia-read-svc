@@ -19,7 +19,7 @@ git remote set-url origin git@github_ranmadxs:ranmadxs/aia-read-svc.git
 
 ```sh {"id":"01HJV2GKHFHRCW2MAYBX6DWF7V"}
 #set var entorno
-export AIA_TAG_READ=aia-read-svc_0.2.0
+export AIA_TAG_READ=aia-read-svc_0.2.1
 ```
 
 ```sh {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}
@@ -34,6 +34,8 @@ sudo docker exec -ti aia_read_svc bash
 
 #run
 docker run -d --restart=always -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/app/resources/images -v /home/ranmadxs/aia/aia-cortex-nlu/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
+
+docker run --rm -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/app/resources/images -v /home/ranmadxs/aia/aia-cortex-nlu/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
 
 ```
 
