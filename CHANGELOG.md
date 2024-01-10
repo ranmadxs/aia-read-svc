@@ -3,6 +3,11 @@ runme:
   id: 01HJQ7JXMD6NADWWC23SR9W42S
   version: v2.0
 ---
+# UNRELEASE
+
+0.2.0 05-ene-2024
+
+- Feature: Send Img (WH40K Unit) to aia-device
 
 # RELEASE
 

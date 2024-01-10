@@ -17,32 +17,29 @@ git remote set-url origin git@github_ranmadxs:ranmadxs/aia-read-svc.git
 
 ## Docker
 
-```console {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}
+```sh {"id":"01HJV2GKHFHRCW2MAYBX6DWF7V"}
+#set var entorno
+export AIA_TAG_READ=aia-read-svc_0.2.0
+```
+
+```sh {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}
 #build
-docker build . --platform linux/arm64/v8 -t keitarodxs/aia:aia-read-svc_0.1.0
+docker build . --platform linux/arm64/v8 -t keitarodxs/aia:$AIA_TAG_READ
 
 #push
-docker push keitarodxs/aia:aia-read-svc_0.1.0
+docker push keitarodxs/aia:$AIA_TAG_READ
 
 #go into docker container
 sudo docker exec -ti aia_read_svc bash
 
-```
-
-### Install Img
-
-```console {"id":"01HJQ7F9RXZBJJ4YEQAAX4XA1Y"}
-
-#pull
-docker pull keitarodxs/aia:aia-read-svc_0.1.0
-
 #run
-docker run -d --rm -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-read-svc/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:aia-read-svc_0.1.0
+docker run -d --rm -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-cortex-nlu/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
 
-
+```
+```sh
 #other commands
-docker save -o aia-read-svc_0.1.0.tar keitarodxs/aia:aia-read-svc_0.1.0
+docker save -o $AIA_TAG_READ.tar keitarodxs/aia:$AIA_TAG_READ
 
-docker load -i aia-read-svc_0.1.0.tar
+docker load -i $AIA_TAG_READ.tar
 ```
 
