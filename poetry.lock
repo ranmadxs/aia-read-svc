@@ -1,6 +1,6 @@
 [[package]]
 name = "aia-utils"
-version = "0.1.8"
+version = "0.1.7"
 description = ""
 category = "main"
 optional = false
@@ -10,13 +10,8 @@ python-versions = ">=3.11,<4.0"
 confluent-kafka = ">=2.3.0,<3.0.0"
 coverage = ">=7.3.2,<8.0.0"
 html2image = ">=2.0.4,<3.0.0"
-pillow = ">=10.2.0,<11.0.0"
 pymongo = ">=4.6.1,<5.0.0"
 PyYAML = ">=6.0.1,<7.0.0"
-
-[package.source]
-type = "file"
-url = "../aia-utils/dist/aia_utils-0.1.8-py3-none-any.whl"
 
 [[package]]
 name = "annotated-types"
@@ -722,12 +717,10 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.11.2,<3.12"
-content-hash = "42e6fff3cd334343030e085ecc794dd632bcfad946575f513846bded17e69f7e"
+content-hash = "8019cc2b35c738b87fc2920dee927902820bbb184e0a4c7317b6dab66d0f8375"
 
 [metadata.files]
-aia-utils = [
-    {file = "aia_utils-0.1.8-py3-none-any.whl", hash = "sha256:af199a5754b0cea0f0a45ada63d1caea0f72069d969cc8324b8ad8959698dcec"},
-]
+aia-utils = []
 annotated-types = []
 anyio = []
 beautifulsoup4 = []
