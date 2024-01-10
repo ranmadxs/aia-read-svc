@@ -1,11 +1,12 @@
 from dotenv import load_dotenv
 import os
-from kafka.Queue import QueueConsumer, QueueProducer
+from aia_utils.Queue import QueueConsumer, QueueProducer
 from repositories.aiaRepo import AIAMessageRepository
 from .wh40kSvc import Warhammer40KService
-from logs.logs_cfg import config_logger
+from aia_utils.logs_cfg import config_logger
 import logging
-
+config_logger()
+logger = logging.getLogger(__name__)
 load_dotenv()
 
 class ReadSvc:
@@ -16,8 +17,6 @@ class ReadSvc:
         self.aiaMsgRepo = AIAMessageRepository(os.environ['MONGODB_URI'])
         self.version = version
         self.wh40k = Warhammer40KService(self.topic_producer, version)
-        config_logger()
-        self.logger = logging.getLogger(__name__)
 
     def readDaemon(self):
         queueConsumer = QueueConsumer(self.topic_consumer)
@@ -31,10 +30,10 @@ class ReadSvc:
         try:
             print(str(msgDict["cmd"]))
             if msgDict["cmd"].upper() == "wh40k".upper():
-                self.logger.info("Llegó un mensaje de wh40k!")
+                logger.info("Llegó un mensaje de wh40k!")
                 self.wh40k.process(msgDict['semanticGraph'])
             if msgDict["cmd"].upper() == "READ_YAHOO_MAIL".upper():
-                self.logger.info("Llegó un mensaje de READ_YAHOO_MAIL!")
+                logger.info("Llegó un mensaje de READ_YAHOO_MAIL!")
                 
         except KeyError:
             print("[WARN] not cmd field in message")

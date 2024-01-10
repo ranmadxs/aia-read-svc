@@ -14,7 +14,7 @@ from .numbers_to_letters import leer_decenas
 from dotenv import load_dotenv
 load_dotenv()
 #driver = webdriver.Firefox()
-from kafka.Queue import QueueConsumer, QueueProducer
+from aia_utils.Queue import QueueConsumer, QueueProducer
 
 #https://es.ayuda.yahoo.com/kb/account/Genera-y-administra-contrase%C3%B1as-de-aplicaciones-de-externas-sln15241.html#:~:text=Inicia%20sesi%C3%B3n%20en%20la%20p%C3%A1gina,administrar%20contrase%C3%B1as%20de%20la%20aplicaci%C3%B3n.
 class YahooMail:

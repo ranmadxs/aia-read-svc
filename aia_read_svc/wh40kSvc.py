@@ -1,5 +1,3 @@
-from logs.logs_cfg import config_logger
-import logging
 import json
 import html_to_json
 import requests
@@ -12,21 +10,29 @@ from typing import List
 import Levenshtein as lev
 from numpy import loadtxt
 import os
+import io
 from repositories.aiaWh40kRepo import AIAWH40KRepository
 from repositories.aiaRepo import AIAMessageRepository
 from dotenv import load_dotenv
 load_dotenv()
-
-from kafka.Queue import QueueProducer
+from aia_utils.img_utils import ImageUtils
+from aia_utils.Queue import QueueProducer
+from aia_utils.logs_cfg import config_logger
+import logging
 
 class Warhammer40KService:
-    def __init__(self, topic_producer: str, version: str = "v1"):
+    def __init__(self, topic_producer: str, version: str = "v1", output_path='target'):
         self.topic_producer = topic_producer
         config_logger()
         self.logger = logging.getLogger(__name__)
         self.aiaWHRepo = AIAWH40KRepository(os.environ['MONGODB_URI'])
         self.aiaMsgRepo = AIAMessageRepository(os.environ['MONGODB_URI'])
         self.queueProducer = QueueProducer(self.topic_producer, version, "aia-read-svc")
+        self.queueDevice = QueueProducer(os.environ['CLOUDKAFKA_TOPIC_DEVICE_PRODUCER'], version, "aia-read-svc")
+        self.wahapedia_css = open("resources/wh40k/wahapedia.css", "r")
+        self.wahapedia_css = self.wahapedia_css.read()
+        self.output_path = output_path
+        self.hti = ImageUtils(output_path=output_path)
 
     def compareToken(self, token_list: List, word: str, ratio_compare: float = 0.5):
         token_list_resp = []
@@ -62,6 +68,10 @@ class Warhammer40KService:
                 msgArray.append(node['originalText'])
         return ' '.join(msgArray)
     
+    def sendImgToDev(self, name: str):
+        self.queueDevice.send({"type": "image_resources", "origin": "resources/images", "name": name})
+        self.queueDevice.flush()
+
     def sendMsg(self, sentences: list):
 
         dbObject = self.queueProducer.msgBuilder({
@@ -85,7 +95,7 @@ class Warhammer40KService:
         ratio_compare: float = 0.51
         self.logger.debug("Processing wh40kObj")
         self.logger.debug(os.getcwd())
-        data = loadtxt('./resources/wh40k_tokens.txt', dtype='str')
+        data = loadtxt('./resources/wh40k/wh40k_tokens.txt', dtype='str')
         self.logger.debug(data)
         self.logger.debug(data.dtype)
         faction_token = self.compareToken(data, wh40kObj['sentence'].replace("modo warhammer", ""), ratio_compare)
@@ -101,13 +111,14 @@ class Warhammer40KService:
         self.logger.info(unit_token)
         unit = self.getUnitFactionAttr(faction_token['token'], unit_token['token'])
         self.logger.debug(unit)
-        sentences = [{"msg": f"{unit.speech['text']}", "sound_in": "transition02.wav", "language": f"{unit.speech['language']}"}]
+        sentences = [{"msg": f"{unit.speech.text}", "sound_in": "transition02.wav", "language": f"{unit.speech.language}"}]
         self.sendMsg(sentences)
+        self.sendImgToDev(unit.image_name)
         self.logger.debug(sentences)
         
     def getFactionsKeywords(self, edition: str = "wh40k10ed") -> List:
         self.logger.debug("Getting factions keywords")
-        tokensFactions = loadtxt('./resources/wh40k_tokens.txt', dtype='str')
+        tokensFactions = loadtxt('./resources/wh40k/wh40k_tokens.txt', dtype='str')
         keywordFactions = []
         for token in tokensFactions:
             factionKeys = self.getUnitListKeywords(token, edition)
@@ -148,19 +159,25 @@ class Warhammer40KService:
         return respFaction
 
     def getUnitFactionAttr(self, faction: str, unit_code: str, edition: str = 'wh40k10ed') -> WH40K_Unit:
-        self.logger.debug("Getting faction codex")
+        self.logger.debug("Getting unit faction attr")
         unit = self.aiaWHRepo.findWH40KUnit(unit_code, faction, edition)
+        #TODO: agregar copiar imagen a ruta cuando se carga de la url self.output_path
         if (unit is not None) and (unit["_id"] is not None):
-            self.logger.debug(unit)
             self.logger.debug(type(unit))
+            speech = Speech(unit["speech"]["text"], unit["speech"]["language"])
             unit = WH40K_Unit(unit)
-            #return WH40K_Unit(unit)
+            unit.speech = speech
             return unit
         response = requests.get(f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}")
         unit = None
+        
         print (response.status_code)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
+            main_div = soup.find("div", {"class": "dsOuterFrame"})
+            html_main_div = main_div.prettify()
+            image_name = 'wahapedia_snapshot.png'
+            img_snapshot = self.hti.html2img(name=image_name, html=html_main_div, css=self.wahapedia_css, size=(960, 640))            
             mydivs = soup.find_all("div", {"class": "dsProfileWrapLeft"})
             html_content = mydivs[0].prettify()
             print(html_content)
@@ -194,19 +211,21 @@ class Warhammer40KService:
                     chr_name,
                     chr_value))
                 speech.text = speech.text + f"{chr_name} {chr_value} "
-
             self.logger.debug(invulDivs)
 
-            
+            image_bytes = io.BytesIO()
+            img_snapshot.save(image_bytes, format='PNG')
+
             unit = WH40K_Unit({
                 "name": unitDivs.text.strip(), 
                 "code": unit_code, 
                 "speech": speech, 
                 "faction": faction, 
                 "edition": edition, 
-                "characteristics":characteristics
+                "characteristics":characteristics,
+                "image": image_bytes.getvalue(),
+                "image_name": image_name
                 })
-            self.logger.info(unit)
             self.aiaWHRepo.insertWh40kUnit(unit.dict())
         return unit
         

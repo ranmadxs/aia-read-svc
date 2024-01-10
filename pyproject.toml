@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aia-read-svc"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Edgar Rodrigo Sanchez De Gracia <edgr.sanchez@mercadolibre.cl>"]
 readme = "README.md"
@@ -13,8 +13,6 @@ pythonpath = "aia_read_svc"
 python = ">=3.11.2,<3.12"
 numpy = "^1.24.0"
 whatsapp-web = "^0.0.1"
-confluent-kafka = "2.3.0"
-pymongo = "4.5.0"
 pyautogui = "^0.9.54"
 jmespath = "^1.0.1"
 httpx = "^0.25.2"
@@ -26,6 +24,8 @@ html-to-json = "^2.0.0"
 beautifulsoup4 = "^4.12.2"
 openai = "^1.3.8"
 python-Levenshtein = "^0.23.0"
+aia-utils = {path = "../aia-utils/dist/aia_utils-0.1.8-py3-none-any.whl"}
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.3"

@@ -1,3 +1,4 @@
+target/
 application.log
 .env
 *.pyc
