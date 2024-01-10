@@ -16,7 +16,7 @@ class ReadSvc:
         self.topic_consumer = topic_consumer
         self.aiaMsgRepo = AIAMessageRepository(os.environ['MONGODB_URI'])
         self.version = version
-        self.wh40k = Warhammer40KService(self.topic_producer, version)
+        self.wh40k = Warhammer40KService(self.topic_producer, version, os.getenv("WH40K_IMG_FILES_PATH"))
 
     def readDaemon(self):
         queueConsumer = QueueConsumer(self.topic_consumer)
