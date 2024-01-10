@@ -1,6 +1,6 @@
 [[package]]
 name = "aia-utils"
-version = "0.1.7"
+version = "0.1.8"
 description = ""
 category = "main"
 optional = false
@@ -10,6 +10,7 @@ python-versions = ">=3.11,<4.0"
 confluent-kafka = ">=2.3.0,<3.0.0"
 coverage = ">=7.3.2,<8.0.0"
 html2image = ">=2.0.4,<3.0.0"
+pillow = ">=10.2.0,<11.0.0"
 pymongo = ">=4.6.1,<5.0.0"
 PyYAML = ">=6.0.1,<7.0.0"
 
@@ -717,7 +718,7 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.11.2,<3.12"
-content-hash = "8019cc2b35c738b87fc2920dee927902820bbb184e0a4c7317b6dab66d0f8375"
+content-hash = "2a42009c03235d48578a6a1a7023dea103921f91632b50aa45ec00dd3588a451"
 
 [metadata.files]
 aia-utils = []

@@ -100,6 +100,8 @@ class Warhammer40KService:
         self.logger.debug(data.dtype)
         faction_token = self.compareToken(data, wh40kObj['sentence'].replace("modo warhammer", ""), ratio_compare)
         self.logger.info(faction_token)
+        if faction_token is None:
+            return False
         factionKeys = self.getUnitListKeywords(faction_token['token'], edition)
 
         #self.logger.debug(factionKeys['tokens_factions'])
@@ -110,7 +112,7 @@ class Warhammer40KService:
         unit_token = self.compareToken(keywordsUnits['tokens_factions'], msg_current, ratio_compare = 0.5)
         self.logger.info(unit_token)
         unit = self.getUnitFactionAttr(faction_token['token'], unit_token['token'])
-        self.logger.debug(unit)
+        #self.logger.debug(unit)
         sentences = [{"msg": f"{unit.speech.text}", "sound_in": "transition02.wav", "language": f"{unit.speech.language}"}]
         self.sendMsg(sentences)
         self.sendImgToDev(unit.image_name)
@@ -214,6 +216,7 @@ class Warhammer40KService:
             self.logger.debug(invulDivs)
 
             image_bytes = io.BytesIO()
+            self.logger.debug(type(img_snapshot))
             img_snapshot.save(image_bytes, format='PNG')
 
             unit = WH40K_Unit({

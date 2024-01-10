@@ -47,5 +47,5 @@ def test_process():
     print("test_process")
     wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
     #testFile = currentPath + "/resources/test/semanticGraphWH40k.json"
-    testFile = currentPath + "/resources/test/sgWH40K_tactical.json"
+    testFile = currentPath + "/resources/test/wh40k_ancient.json"
     wh40kSvc.process(getSemanticGraph(testFile))

@@ -1,0 +1,174 @@
+{
+    "_id": "659e3eff49d59c0a59e1f39f",
+    "head": {
+      "producer": "aia_cortex_nlu",
+      "creationDate": "2024-01-10T03:53:51.012Z",
+      "version": "0.2.1a1"
+    },
+    "breadcrumb": [
+      {
+        "name": "aia_cortex_nlu",
+        "creationDate": "2024-01-10T03:53:51.012Z"
+      }
+    ],
+    "semanticTree": "{{modo->nsubj(NOUN){warhammer->amod(ADJ)}}space->ROOT(VERB){marine->obj(PROPN){ancient->flat(PROPN)}}{.->punct(PUNCT)}}",
+    "dotFormat": "           space_ROOT               \n    __________|_____________        \n   |      modo_nsubj    marine_obj \n   |          |             |       \n._punct warhammer_amod ancient_flat\n\n",
+    "formattedText": {
+      "text": "modo warhammer space marine ancient.",
+      "ents": [
+        {
+          "start": 5,
+          "end": 35,
+          "label": "MISC"
+        }
+      ],
+      "sents": [
+        {
+          "start": 0,
+          "end": 36
+        }
+      ],
+      "tokens": [
+        {
+          "id": 0,
+          "start": 0,
+          "end": 4,
+          "tag": "NOUN",
+          "pos": "NOUN",
+          "morph": "Gender=Masc|Number=Sing",
+          "lemma": "modo",
+          "dep": "nsubj",
+          "head": 2
+        },
+        {
+          "id": 1,
+          "start": 5,
+          "end": 14,
+          "tag": "ADJ",
+          "pos": "ADJ",
+          "morph": "Gender=Masc|Number=Sing",
+          "lemma": "warhammer",
+          "dep": "amod",
+          "head": 0
+        },
+        {
+          "id": 2,
+          "start": 15,
+          "end": 20,
+          "tag": "VERB",
+          "pos": "VERB",
+          "morph": "Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin",
+          "lemma": "spacir",
+          "dep": "ROOT",
+          "head": 2
+        },
+        {
+          "id": 3,
+          "start": 21,
+          "end": 27,
+          "tag": "PROPN",
+          "pos": "PROPN",
+          "morph": "",
+          "lemma": "marine",
+          "dep": "obj",
+          "head": 2
+        },
+        {
+          "id": 4,
+          "start": 28,
+          "end": 35,
+          "tag": "PROPN",
+          "pos": "PROPN",
+          "morph": "",
+          "lemma": "ancient",
+          "dep": "flat",
+          "head": 3
+        },
+        {
+          "id": 5,
+          "start": 35,
+          "end": 36,
+          "tag": "PUNCT",
+          "pos": "PUNCT",
+          "morph": "PunctType=Peri",
+          "lemma": ".",
+          "dep": "punct",
+          "head": 2
+        }
+      ]
+    },
+    "sentence": "modo warhammer space marine ancient.",
+    "aiaMessageId": "659e1b281863be02dc3a7af2",
+    "nodes": [
+      {
+        "originalText": "modo",
+        "tag": "noun",
+        "index": 0,
+        "relationType": "nsubj",
+        "parent": {
+          "originalText": "space",
+          "tag": "VERB",
+          "index": 2
+        },
+        "semanticNodeTree": "{modo->nsubj(NOUN){warhammer->amod(ADJ)}}"
+      },
+      {
+        "originalText": "warhammer",
+        "tag": "adj",
+        "index": 1,
+        "relationType": "amod",
+        "parent": {
+          "originalText": "modo",
+          "tag": "NOUN",
+          "index": 0
+        },
+        "semanticNodeTree": "{warhammer->amod(ADJ)}"
+      },
+      {
+        "originalText": "space",
+        "tag": "verb",
+        "index": 2,
+        "relationType": "root",
+        "parent": "",
+        "semanticNodeTree": "{{modo->nsubj(NOUN){warhammer->amod(ADJ)}}space->ROOT(VERB){marine->obj(PROPN){ancient->flat(PROPN)}}{.->punct(PUNCT)}}"
+      },
+      {
+        "originalText": "marine",
+        "tag": "propn",
+        "index": 3,
+        "relationType": "obj",
+        "parent": {
+          "originalText": "space",
+          "tag": "VERB",
+          "index": 2
+        },
+        "semanticNodeTree": "{marine->obj(PROPN){ancient->flat(PROPN)}}"
+      },
+      {
+        "originalText": "ancient",
+        "tag": "propn",
+        "index": 4,
+        "relationType": "flat",
+        "parent": {
+          "originalText": "marine",
+          "tag": "PROPN",
+          "index": 3
+        },
+        "semanticNodeTree": "{ancient->flat(PROPN)}"
+      },
+      {
+        "originalText": ".",
+        "tag": "punct",
+        "index": 5,
+        "relationType": "punct",
+        "parent": {
+          "originalText": "space",
+          "tag": "VERB",
+          "index": 2
+        },
+        "semanticNodeTree": "{.->punct(PUNCT)}"
+      }
+    ],
+    "classification": "MOD",
+    "type": ""
+  }
