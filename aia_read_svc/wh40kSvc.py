@@ -178,8 +178,10 @@ class Warhammer40KService:
             soup = BeautifulSoup(response.content, 'html.parser')
             main_div = soup.find("div", {"class": "dsOuterFrame"})
             html_main_div = main_div.prettify()
-            image_name = 'wahapedia_snapshot.png'
+            image_name = f"wahapedia_snapshot_{unit_code}.png"
             img_snapshot = self.hti.html2img(name=image_name, html=html_main_div, css=self.wahapedia_css, size=(960, 640))            
+            self.logger.debug(f"Image save: {self.output_path}/{image_name}")
+            print(os.listdir(self.output_path))
             mydivs = soup.find_all("div", {"class": "dsProfileWrapLeft"})
             html_content = mydivs[0].prettify()
             print(html_content)

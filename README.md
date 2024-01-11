@@ -19,7 +19,7 @@ git remote set-url origin git@github_ranmadxs:ranmadxs/aia-read-svc.git
 
 ```sh {"id":"01HJV2GKHFHRCW2MAYBX6DWF7V"}
 #set var entorno
-export AIA_TAG_READ=aia-read-svc_0.2.2
+export AIA_TAG_READ=aia-read-svc_0.2.3
 ```
 
 ```sh {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}

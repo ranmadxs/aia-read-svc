@@ -1,17 +1,17 @@
----
-runme:
-  id: 01HJQ7JXMD6NADWWC23SR9W42S
-  version: v2.0
----
-# UNRELEASE
+# UNRELEASED
+
+```bash
+```
 
 # RELEASE
 
-0.2.2 10-ene-2024
+```bash
+[0.2.2] 10-ene-2024
 
-- Feature: Send Img (WH40K Unit) to aia-device
+- Feature: Send Img (WH40k Unit) to aia-device
 
-0.1.0 First Version 28-dic-2023
+[0.1.0] First Version 28-dic-2023
 
-- Feature: Add Docker Config
-- Feature: WH40K Wahapedia units, YahooRead Svc
+- Feature add Docker Config
+- Feature: WH40K Wahapedia units, Yahoo Read Svc.
+```
