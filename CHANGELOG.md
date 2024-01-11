@@ -1,12 +1,19 @@
+---
+runme:
+  id: 01HKVAHXZSFGZ3V400EMT13388
+  version: v2.0
+---
+
 # UNRELEASED
 
-```bash
+```bash {"id":"01HKVAHXZQD9TJNVYF84KAY3A3"}
+
 ```
 
 # RELEASE
 
-```bash
-[0.2.2] 10-ene-2024
+```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
+[0.2.3] 11-ene-2024
 
 - Feature: Send Img (WH40k Unit) to aia-device
 
