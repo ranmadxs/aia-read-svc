@@ -33,9 +33,9 @@ docker push keitarodxs/aia:$AIA_TAG_READ
 sudo docker exec -ti aia_read_svc bash
 
 #run
-docker run -d --restart=always -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/app/resources/images -v /home/ranmadxs/aia/aia-read-svc/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
+docker run -d --restart=always -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/wh40k_images -v /home/ranmadxs/aia/aia-read-svc/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
 
-docker run --rm -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/app/resources/images -v /home/ranmadxs/aia/aia-read-svc/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
+docker run --rm -e TZ=America/Santiago -v /home/ranmadxs/aia/aia-device/resources/images:/wh40k_images -v /home/ranmadxs/aia/aia-read-svc/target:/app/target --net=bridge --name aia_read_svc --env-file .env keitarodxs/aia:$AIA_TAG_READ
 
 ```
 
