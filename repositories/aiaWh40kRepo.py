@@ -17,14 +17,25 @@ class AIAWH40KRepository:
       return _id.inserted_id
   
   def findWH40KUnit(self, code: str, faction: str, edition: str):
-      _id = self.aiaDB["wh40kUnit"].find_one(
+      unit = self.aiaDB["wh40kUnit"].find_one(
          {"$and": [
             { "code": code },
             { "faction": faction },
             { "edition": edition }
          ]
       })
-      return _id
+      unit_image = None
+      if (unit is not None) and (unit["_id"] is not None):
+        unit_image = self.aiaDB["wh40kUnitImages"].find_one(
+            {"$and": [
+                { "unit_id": unit["_id"] }
+            ]
+        })
+      return unit, unit_image
+
+  def insertUnitImage(self, unitImage: any):
+      _id = self.aiaDB["wh40kUnitImages"].insert_one(unitImage)
+      return _id.inserted_id
 
   def insertWh40kUnit(self, wh40kUnit: any):
       _id = self.aiaDB["wh40kUnit"].insert_one(wh40kUnit)

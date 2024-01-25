@@ -12,7 +12,6 @@ load_dotenv()
 class ReadSvc:
     def __init__(self, topic_producer, topic_consumer, version):
         self.topic_producer = topic_producer
-        self.queueProducer = QueueProducer(self.topic_producer, version, "aia-read-svc")
         self.topic_consumer = topic_consumer
         self.aiaMsgRepo = AIAMessageRepository(os.environ['MONGODB_URI'])
         self.version = version

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aia-read-svc"
-version = "0.2.3"
+version = "0.3.0"
 description = ""
 authors = ["Edgar Rodrigo Sanchez De Gracia <edgr.sanchez@mercadolibre.cl>"]
 readme = "README.md"
@@ -23,7 +23,8 @@ html-to-json = "^2.0.0"
 beautifulsoup4 = "^4.12.2"
 openai = "^1.3.8"
 python-Levenshtein = "^0.23.0"
-aia-utils = "^0.1.8"
+poetry = "^1.7.1"
+aia-utils = "^0.1.12"
 
 
 [tool.poetry.dev-dependencies]

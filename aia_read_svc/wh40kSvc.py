@@ -3,7 +3,8 @@ import html_to_json
 import requests
 from bs4 import BeautifulSoup
 import bs4
-from .model.wh40k_model import WH40K_Characteristic, WH40K_Unit
+import base64
+from .model.wh40k_model import WH40K_Characteristic, WH40K_Unit, WH40K_Unit_Images
 from .model.read_model import Speech
 from .model.wh40k_enum import WH40K_PROFILES
 from typing import List
@@ -68,8 +69,10 @@ class Warhammer40KService:
                 msgArray.append(node['originalText'])
         return ' '.join(msgArray)
     
-    def sendImgToDev(self, name: str):
-        self.queueDevice.send({"type": "image_resources", "origin": "resources/images", "name": name})
+    def sendImgToDev(self, image):
+        imgbase64 = base64.b64encode(image["image"])
+        self.queueDevice.produce(imgbase64)
+        #self.queueDevice.send({"type": "image_resources", "origin": "resources/images", "name": image["image_name"]})
         self.queueDevice.flush()
 
     def sendMsg(self, sentences: list):
@@ -111,11 +114,12 @@ class Warhammer40KService:
         keywordsUnits = self.getUnitListKeywords(faction_token['token'], edition)
         unit_token = self.compareToken(keywordsUnits['tokens_factions'], msg_current, ratio_compare = 0.5)
         self.logger.info(unit_token)
-        unit = self.getUnitFactionAttr(faction_token['token'], unit_token['token'])
-        #self.logger.debug(unit)
+        unit, unitImage = self.getUnitFactionAttr(faction_token['token'], unit_token['token'])
+        
         sentences = [{"msg": f"{unit.speech.text}", "sound_in": "transition02.wav", "language": f"{unit.speech.language}"}]
         self.sendMsg(sentences)
-        self.sendImgToDev(unit.image_name)
+        if(unitImage is not None):
+            self.sendImgToDev(unitImage)
         self.logger.debug(sentences)
         
     def getFactionsKeywords(self, edition: str = "wh40k10ed") -> List:
@@ -162,14 +166,14 @@ class Warhammer40KService:
 
     def getUnitFactionAttr(self, faction: str, unit_code: str, edition: str = 'wh40k10ed') -> WH40K_Unit:
         self.logger.debug("Getting unit faction attr")
-        unit = self.aiaWHRepo.findWH40KUnit(unit_code, faction, edition)
+        unit, unit_image = self.aiaWHRepo.findWH40KUnit(unit_code, faction, edition)
         #TODO: agregar copiar imagen a ruta cuando se carga de la url self.output_path
         if (unit is not None) and (unit["_id"] is not None):
             self.logger.debug(type(unit))
             speech = Speech(unit["speech"]["text"], unit["speech"]["language"])
             unit = WH40K_Unit(unit)
             unit.speech = speech
-            return unit
+            return unit, unit_image
         response = requests.get(f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}")
         unit = None
         
@@ -227,10 +231,14 @@ class Warhammer40KService:
                 "speech": speech, 
                 "faction": faction, 
                 "edition": edition, 
-                "characteristics":characteristics,
-                "image": image_bytes.getvalue(),
-                "image_name": image_name
+                "characteristics":characteristics
                 })
-            self.aiaWHRepo.insertWh40kUnit(unit.dict())
-        return unit
+            unitID = self.aiaWHRepo.insertWh40kUnit(unit.dict())
+            unitImages = WH40K_Unit_Images(
+                image_bytes.getvalue(),
+                image_name,
+                unitID
+            )
+            self.aiaWHRepo.insertUnitImage(unitImages.dict())
+        return unit, unitImages
         

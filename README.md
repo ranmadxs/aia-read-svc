@@ -1,25 +1,28 @@
 ---
 runme:
   id: 01HJQE75SKBTCT1QQK59F1AVR6
-  version: v2.0
+  version: v2.2
 ---
 
 # aia-read-svc
 
 AIA Read Service
 
-```console {"id":"01HJQE75SKBTCT1QQK57A0T1JR"}
+```sh {"id":"01HJQE75SKBTCT1QQK57A0T1JR"}
 poetry run daemon
 
 git ls-remote --get-url origin 
 git remote set-url origin git@github_ranmadxs:ranmadxs/aia-read-svc.git
+
+#tags
+git push --tags
 ```
 
 ## Docker
 
 ```sh {"id":"01HJV2GKHFHRCW2MAYBX6DWF7V"}
 #set var entorno
-export AIA_TAG_READ=aia-read-svc_0.2.3
+export AIA_TAG_READ=aia-read-svc_0.3.0
 ```
 
 ```sh {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}

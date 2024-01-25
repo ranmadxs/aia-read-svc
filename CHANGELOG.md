@@ -13,6 +13,10 @@ runme:
 # RELEASE
 
 ```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
+[0.3.0] 21-ene-2024
+
+- Feature: Send Img to Kafka Queue, and remove file system.
+
 [0.2.3] 11-ene-2024
 
 - Feature: Send Img (WH40k Unit) to aia-device
