@@ -1,7 +1,7 @@
 ---
 runme:
   id: 01HKVAHXZSFGZ3V400EMT13388
-  version: v2.0
+  version: v2.2
 ---
 
 # UNRELEASED
@@ -13,6 +13,10 @@ runme:
 # RELEASE
 
 ```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
+[0.3.1] 25-ene-2024
+
+- Bug fix get image WH40k Unit
+
 [0.3.0] 21-ene-2024
 
 - Feature: Send Img to Kafka Queue, and remove file system.
