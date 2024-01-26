@@ -39,7 +39,9 @@ def test_get_listKeys():
 def test_get_factions_attr():
     print("test_get_factions")
     wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'], "test", os.getenv("WH40K_IMG_FILES_PATH"))
-    unit = wh40kSvc.getUnitFactionAttr("space-marines", "Tactical-Squad") 
+    unit, unitImage = wh40kSvc.getUnitFactionAttr("space-marines", "Tactical-Squad")
+    if(unitImage is not None):
+        wh40kSvc.sendImgToDev(unitImage)
     #logger.debug(unit)
 
 #poetry run pytest tests/test_wh40k.py::test_process -s

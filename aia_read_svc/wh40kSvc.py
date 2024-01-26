@@ -70,7 +70,12 @@ class Warhammer40KService:
         return ' '.join(msgArray)
     
     def sendImgToDev(self, image):
-        imgbase64 = base64.b64encode(image["image"])
+        _img = None
+        if isinstance(image, WH40K_Unit_Images):
+            _img = image.image
+        else:
+            _img = image["image"]
+        imgbase64 = base64.b64encode(_img)
         self.queueDevice.produce(imgbase64)
         #self.queueDevice.send({"type": "image_resources", "origin": "resources/images", "name": image["image_name"]})
         self.queueDevice.flush()
