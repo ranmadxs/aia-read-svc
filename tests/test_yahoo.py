@@ -11,9 +11,11 @@ import os
 import pprint
 from email.header import decode_header
 import poplib
+import pytest
 load_dotenv()
 
 #poetry run pytest tests/test_yahoo.py::test_pop3 -s
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_pop3():
     # input email address, password and pop3 server domain or ip address
     email= "grineldosanchez@yahoo.com"
@@ -71,6 +73,7 @@ def obtain_header(msg):
     return subject, From
 
 #poetry run pytest tests/test_yahoo.py::test_read -s
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_read():
     IMAP_server = "imap.mail.yahoo.com"  # Yahoo IMAP server
     mail_id = "grineldosanchez@yahoo.com"
@@ -104,6 +107,7 @@ def test_read():
 
 #https://coderslegacy.com/python/imap-read-emails-with-imaplib/
 #poetry run pytest tests/test_yahoo.py::test_read22 -s
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_read22():
     IMAP_server = "imap.mail.yahoo.com"  # Yahoo IMAP server
     mail_id = "grineldosanchez@yahoo.com"
@@ -135,6 +139,7 @@ def test_read22():
 
 
 #poetry run pytest tests/test_yahoo.py::test_send_yahoo -s
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_send_yahoo():
     # provide credentials
     login = 'grineldosanchez@yahoo.es'

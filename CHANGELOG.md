@@ -1,18 +1,18 @@
 ---
 runme:
   id: 01HKVAHXZSFGZ3V400EMT13388
-  version: v2.2
+  version: v3
 ---
-
-# UNRELEASED
-
-```bash {"id":"01HKVAHXZQD9TJNVYF84KAY3A3"}
-
-```
 
 # RELEASE
 
 ```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
+[0.3.2] 12-ago-2024
+
+- 🔄 Update: aia-utils-0.3.0
+- 🔄 Update: pywhatkit-5.4
+- 🔄 Update: selenium-4.23.1
+
 [0.3.1] 25-ene-2024
 
 - Bug fix get image WH40k Unit

@@ -7,8 +7,10 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 #poetry run pytest -s
+import pytest
 
 #poetry run pytest tests/test_mail.py::test_send_yahoo -s
+@pytest.mark.skip(reason="no funciona")
 def test_send_yahoo():
     fromMy = 'grineldosanchez@yahoo.es' # fun-fact: "from" is a keyword in python, you can't use it as variable.. did anyone check if this code even works?
     to  = 'ranmadxs@gmail.com'
@@ -31,6 +33,7 @@ def test_send_yahoo():
         print('can\'t send the Email')    
 
 #poetry run pytest tests/test_mail.py::test_yahoo_mail -s
+@pytest.mark.skip(reason="no funciona")
 def test_yahoo_mail():
     print("Test yahoo mail")
     M = poplib.POP3_SSL('pop.mail.yahoo.com', 995) #Connect to hotmail pop3 server
@@ -52,7 +55,7 @@ def test_yahoo_mail():
             success = True
     assert True
 
-
+@pytest.mark.skip(reason="no funciona")
 def test_google_mail_example():
     print("Test google mail")
     start = time.time()

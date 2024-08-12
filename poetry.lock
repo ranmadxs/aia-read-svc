@@ -1,18 +1,20 @@
 [[package]]
 name = "aia-utils"
-version = "0.1.12"
+version = "0.3.0"
 description = ""
 category = "main"
 optional = false
-python-versions = ">=3.11,<4.0"
+python-versions = "<4.0,>=3.11"
 
 [package.dependencies]
 confluent-kafka = ">=2.3.0,<3.0.0"
 coverage = ">=7.3.2,<8.0.0"
 html2image = ">=2.0.4,<3.0.0"
+paho-mqtt = ">=2.1.0,<3.0.0"
 pillow = ">=10.2.0,<11.0.0"
 pymongo = ">=4.6.1,<5.0.0"
 PyYAML = ">=6.0.1,<7.0.0"
+requests = ">=2.32.3,<3.0.0"
 tomli = ">=2.0.1,<3.0.0"
 
 [[package]]
@@ -41,6 +43,22 @@ test = ["anyio", "coverage[toml] (>=7)", "exceptiongroup (>=1.2.0)", "hypothesis
 trio = ["trio (>=0.23)"]
 
 [[package]]
+name = "attrs"
+version = "24.2.0"
+description = "Classes Without Boilerplate"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+benchmark = ["cloudpickle", "hypothesis", "mypy (>=1.11.1)", "pympler", "pytest-codspeed", "pytest-mypy-plugins", "pytest-xdist", "pytest (>=4.3.0)"]
+cov = ["cloudpickle", "coverage[toml] (>=5.3)", "hypothesis", "mypy (>=1.11.1)", "pympler", "pytest-mypy-plugins", "pytest-xdist", "pytest (>=4.3.0)"]
+dev = ["cloudpickle", "hypothesis", "mypy (>=1.11.1)", "pre-commit", "pympler", "pytest-mypy-plugins", "pytest-xdist", "pytest (>=4.3.0)"]
+docs = ["cogapp", "furo", "myst-parser", "sphinx", "sphinx-notfound-page", "sphinxcontrib-towncrier", "towncrier (<24.7)"]
+tests = ["cloudpickle", "hypothesis", "mypy (>=1.11.1)", "pympler", "pytest-mypy-plugins", "pytest-xdist", "pytest (>=4.3.0)"]
+tests-mypy = ["mypy (>=1.11.1)", "pytest-mypy-plugins"]
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.12.3"
 description = "Screen-scraping library"
@@ -57,6 +75,14 @@ chardet = ["chardet"]
 charset-normalizer = ["charset-normalizer"]
 html5lib = ["html5lib"]
 lxml = ["lxml"]
+
+[[package]]
+name = "blinker"
+version = "1.8.2"
+description = "Fast, simple object-to-object and broadcast signaling"
+category = "main"
+optional = false
+python-versions = ">=3.8"
 
 [[package]]
 name = "bs4"
@@ -146,6 +172,17 @@ crashtest = ">=0.4.1,<0.5.0"
 rapidfuzz = ">=3.0.0,<4.0.0"
 
 [[package]]
+name = "click"
+version = "8.1.7"
+description = "Composable command line interface toolkit"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -155,7 +192,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7
 
 [[package]]
 name = "confluent-kafka"
-version = "2.3.0"
+version = "2.5.0"
 description = "Confluent's Python client for Apache Kafka"
 category = "main"
 optional = false
@@ -235,19 +272,19 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "dnspython"
-version = "2.5.0"
+version = "2.6.1"
 description = "DNS toolkit"
 category = "main"
 optional = false
 python-versions = ">=3.8"
 
 [package.extras]
-dev = ["black (>=23.1.0)", "coverage (>=7.0)", "flake8 (>=5.0.3)", "mypy (>=1.0.1)", "pylint (>=2.7)", "pytest-cov (>=3.0.0)", "pytest (>=6.2.5)", "sphinx (>=7.0.0)", "twine (>=4.0.0)", "wheel (>=0.41.0)"]
+dev = ["black (>=23.1.0)", "coverage (>=7.0)", "flake8 (>=7)", "mypy (>=1.8)", "pylint (>=3)", "pytest-cov (>=4.1.0)", "pytest (>=7.4)", "sphinx (>=7.2.0)", "twine (>=4.0.0)", "wheel (>=0.42.0)"]
 dnssec = ["cryptography (>=41)"]
-doh = ["h2 (>=4.1.0)", "httpcore (>=0.17.3)", "httpx (>=0.25.1)"]
-doq = ["aioquic (>=0.9.20)"]
-idna = ["idna (>=2.1)"]
-trio = ["trio (>=0.14)"]
+doh = ["h2 (>=4.1.0)", "httpcore (>=1.0.0)", "httpx (>=0.26.0)"]
+doq = ["aioquic (>=0.9.25)"]
+idna = ["idna (>=3.6)"]
+trio = ["trio (>=0.23)"]
 wmi = ["wmi (>=1.5.1)"]
 
 [[package]]
@@ -290,6 +327,25 @@ python-versions = ">=3.8"
 docs = ["furo (>=2023.9.10)", "sphinx-autodoc-typehints (>=1.24)", "sphinx (>=7.2.6)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.3.2)", "diff-cover (>=8)", "pytest-cov (>=4.1)", "pytest-mock (>=3.12)", "pytest-timeout (>=2.2)", "pytest (>=7.4.3)"]
 typing = ["typing-extensions (>=4.8)"]
+
+[[package]]
+name = "flask"
+version = "3.0.3"
+description = "A simple framework for building complex web applications."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+blinker = ">=1.6.2"
+click = ">=8.1.3"
+itsdangerous = ">=2.1.2"
+Jinja2 = ">=3.1.2"
+Werkzeug = ">=3.0.0"
+
+[package.extras]
+async = ["asgiref (>=3.2)"]
+dotenv = ["python-dotenv"]
 
 [[package]]
 name = "h11"
@@ -402,6 +458,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "itsdangerous"
+version = "2.2.0"
+description = "Safely pass data to untrusted environments and back."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "jaraco.classes"
 version = "3.3.0"
 description = "Utility functions for Python class constructs"
@@ -427,6 +491,20 @@ python-versions = ">=3.7"
 [package.extras]
 test = ["pytest", "pytest-trio", "pytest-asyncio (>=0.17)", "testpath", "trio", "async-timeout"]
 trio = ["trio", "async-generator"]
+
+[[package]]
+name = "jinja2"
+version = "3.1.4"
+description = "A very fast and expressive template engine."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+MarkupSafe = ">=2.0"
+
+[package.extras]
+i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "jmespath"
@@ -480,6 +558,14 @@ cssselect = ["cssselect (>=0.7)"]
 html5 = ["html5lib"]
 htmlsoup = ["beautifulsoup4"]
 source = ["Cython (>=3.0.7)"]
+
+[[package]]
+name = "markupsafe"
+version = "2.1.5"
+description = "Safely add untrusted strings to HTML/XML markup."
+category = "main"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "more-itertools"
@@ -539,12 +625,34 @@ typing-extensions = ">=4.7,<5"
 datalib = ["numpy (>=1)", "pandas-stubs (>=1.1.0.11)", "pandas (>=1.2.3)"]
 
 [[package]]
+name = "outcome"
+version = "1.3.0.post0"
+description = "Capture the outcome of Python function calls."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+attrs = ">=19.2.0"
+
+[[package]]
 name = "packaging"
 version = "23.2"
 description = "Core utilities for Python packages"
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "paho-mqtt"
+version = "2.1.0"
+description = "MQTT version 5.0/3.1.1 client class"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+proxy = ["pysocks"]
 
 [[package]]
 name = "parsel"
@@ -749,20 +857,21 @@ pyrect = "*"
 
 [[package]]
 name = "pymongo"
-version = "4.6.1"
+version = "4.8.0"
 description = "Python driver for MongoDB <http://www.mongodb.org>"
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [package.dependencies]
 dnspython = ">=1.16.0,<3.0.0"
 
 [package.extras]
-aws = ["pymongo-auth-aws (<2.0.0)"]
-encryption = ["pymongo", "pymongocrypt (>=1.6.0,<2.0.0)", "certifi"]
+aws = ["pymongo-auth-aws (>=1.1.0,<2.0.0)"]
+docs = ["furo (==2023.9.10)", "readthedocs-sphinx-search (>=0.3,<1.0)", "sphinx-rtd-theme (>=2,<3)", "sphinx (>=5.3,<8)", "sphinxcontrib-shellcheck (>=1,<2)"]
+encryption = ["certifi", "pymongo-auth-aws (>=1.1.0,<2.0.0)", "pymongocrypt (>=1.6.0,<2.0.0)"]
 gssapi = ["pykerberos", "winkerberos (>=0.5.0)"]
-ocsp = ["pyopenssl (>=17.2.0)", "requests (<3.0.0)", "cryptography (>=2.5)", "service-identity (>=18.1.0)", "certifi"]
+ocsp = ["certifi", "cryptography (>=2.5)", "pyopenssl (>=17.2.0)", "requests (<3.0.0)", "service-identity (>=18.1.0)"]
 snappy = ["python-snappy"]
 test = ["pytest (>=7)"]
 zstd = ["zstandard"]
@@ -840,6 +949,14 @@ python-versions = "*"
 
 [package.dependencies]
 Pillow = {version = ">=9.3.0", markers = "python_version == \"3.11\""}
+
+[[package]]
+name = "pysocks"
+version = "1.7.1"
+description = "A Python SOCKS client module. See https://github.com/Anorov/PySocks for more information."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pytest"
@@ -924,6 +1041,21 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pywhatkit"
+version = "5.4"
+description = "PyWhatKit is a Simple and Powerful WhatsApp Automation Library with many useful Features"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = "*"
+Pillow = "*"
+pyautogui = "*"
+requests = "*"
+wikipedia = "*"
+
+[[package]]
 name = "pywin32-ctypes"
 version = "0.2.2"
 description = "A (partial) reimplementation of pywin32 using ctypes/cffi"
@@ -933,11 +1065,11 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "pyyaml"
-version = "6.0.1"
+version = "6.0.2"
 description = "YAML parser and emitter for Python"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 
 [[package]]
 name = "rapidfuzz"
@@ -952,11 +1084,11 @@ full = ["numpy"]
 
 [[package]]
 name = "requests"
-version = "2.31.0"
+version = "2.32.3"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 
 [package.dependencies]
 certifi = ">=2017.4.17"
@@ -966,7 +1098,7 @@ urllib3 = ">=1.21.1,<3"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "requests-toolbelt"
@@ -1004,6 +1136,22 @@ cryptography = ">=2.0"
 jeepney = ">=0.6"
 
 [[package]]
+name = "selenium"
+version = "4.23.1"
+description = "Official Python bindings for Selenium WebDriver"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+certifi = ">=2021.10.8"
+trio = ">=0.17,<1.0"
+trio-websocket = ">=0.9,<1.0"
+typing_extensions = ">=4.9,<5.0"
+urllib3 = {version = ">=1.26,<3", extras = ["socks"]}
+websocket-client = ">=1.8,<2.0"
+
+[[package]]
 name = "shellingham"
 version = "1.5.4"
 description = "Tool to Detect Surrounding Shell"
@@ -1018,6 +1166,14 @@ description = "Sniff out which async library your code is running under"
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "sortedcontainers"
+version = "2.4.0"
+description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "soupsieve"
@@ -1061,6 +1217,34 @@ slack = ["slack-sdk"]
 telegram = ["requests"]
 
 [[package]]
+name = "trio"
+version = "0.26.2"
+description = "A friendly Python library for async concurrency and I/O"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+attrs = ">=23.2.0"
+cffi = {version = ">=1.14", markers = "os_name == \"nt\" and implementation_name != \"pypy\""}
+idna = "*"
+outcome = "*"
+sniffio = ">=1.3.0"
+sortedcontainers = "*"
+
+[[package]]
+name = "trio-websocket"
+version = "0.11.1"
+description = "WebSocket library for Trio"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+trio = ">=0.11"
+wsproto = ">=0.14"
+
+[[package]]
 name = "trove-classifiers"
 version = "2024.1.8"
 description = "Canonical source for classifiers on PyPI (pypi.org)."
@@ -1083,6 +1267,9 @@ description = "HTTP library with thread-safe connection pooling, file post, and 
 category = "main"
 optional = false
 python-versions = ">=3.8"
+
+[package.dependencies]
+pysocks = {version = ">=1.5.6,<1.5.7 || >1.5.7,<2.0", optional = true, markers = "extra == \"socks\""}
 
 [package.extras]
 brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
@@ -1116,16 +1303,30 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "websocket-client"
-version = "1.7.0"
+version = "1.8.0"
 description = "WebSocket client for Python with low level API options"
 category = "main"
 optional = false
 python-versions = ">=3.8"
 
 [package.extras]
-docs = ["Sphinx (>=6.0)", "sphinx-rtd-theme (>=1.1.0)"]
+docs = ["Sphinx (>=6.0)", "sphinx-rtd-theme (>=1.1.0)", "myst-parser (>=2.0.0)"]
 optional = ["python-socks", "wsaccel"]
 test = ["websockets"]
+
+[[package]]
+name = "werkzeug"
+version = "3.0.3"
+description = "The comprehensive WSGI web application library."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+MarkupSafe = ">=2.1.1"
+
+[package.extras]
+watchdog = ["watchdog (>=2.3)"]
 
 [[package]]
 name = "whatsapp-web"
@@ -1134,6 +1335,29 @@ description = "A Python library to automate easily whatsapp web"
 category = "main"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "wikipedia"
+version = "1.4.0"
+description = "Wikipedia API for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+beautifulsoup4 = "*"
+requests = ">=2.0.0,<3.0.0"
+
+[[package]]
+name = "wsproto"
+version = "1.2.0"
+description = "WebSockets state-machine based protocol implementation"
+category = "main"
+optional = false
+python-versions = ">=3.7.0"
+
+[package.dependencies]
+h11 = ">=0.9.0,<1"
 
 [[package]]
 name = "xattr"
@@ -1161,13 +1385,15 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.11.2,<3.12"
-content-hash = "10cac4c7fd813250fd72d96aadf79c6ad054842be50cc7ea25ada8f2841aa7e7"
+content-hash = "f754dbeb625f4583cad3df306c2bbb85577c4566c86d2bb47d653545dd7ddac0"
 
 [metadata.files]
 aia-utils = []
 annotated-types = []
 anyio = []
+attrs = []
 beautifulsoup4 = []
+blinker = []
 bs4 = []
 build = []
 cachecontrol = []
@@ -1175,6 +1401,7 @@ certifi = []
 cffi = []
 charset-normalizer = []
 cleo = []
+click = []
 colorama = []
 confluent-kafka = []
 coverage = []
@@ -1187,6 +1414,7 @@ dnspython = []
 dulwich = []
 fastjsonschema = []
 filelock = []
+flask = []
 h11 = []
 html-to-json = []
 html2image = []
@@ -1196,18 +1424,23 @@ idna = []
 importlib-metadata = []
 iniconfig = []
 installer = []
+itsdangerous = []
 "jaraco.classes" = []
 jeepney = []
+jinja2 = []
 jmespath = []
 keyring = []
 levenshtein = []
 lxml = []
+markupsafe = []
 more-itertools = []
 mouseinfo = []
 msgpack = []
 numpy = []
 openai = []
+outcome = []
 packaging = []
+paho-mqtt = []
 parsel = []
 pexpect = []
 pillow = []
@@ -1232,6 +1465,7 @@ pyperclip = []
 pyproject-hooks = []
 pyrect = []
 pyscreeze = []
+pysocks = []
 pytest = []
 pytest-cov = []
 pytest-dotenv = []
@@ -1239,6 +1473,7 @@ python-dotenv = []
 python-levenshtein = []
 python3-xlib = []
 pytweening = []
+pywhatkit = []
 pywin32-ctypes = []
 pyyaml = []
 rapidfuzz = []
@@ -1246,18 +1481,25 @@ requests = []
 requests-toolbelt = []
 rubicon-objc = []
 secretstorage = []
+selenium = []
 shellingham = []
 sniffio = []
+sortedcontainers = []
 soupsieve = []
 tomli = []
 tomlkit = []
 tqdm = []
+trio = []
+trio-websocket = []
 trove-classifiers = []
 typing-extensions = []
 urllib3 = []
 virtualenv = []
 w3lib = []
 websocket-client = []
+werkzeug = []
 whatsapp-web = []
+wikipedia = []
+wsproto = []
 xattr = []
 zipp = []

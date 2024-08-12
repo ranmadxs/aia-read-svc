@@ -9,12 +9,15 @@ from simon.header.pages import HeaderPage
 from simon.accounts.pages import LoginPage
 from simon.header.pages import HeaderPage
 from simon.pages import BasePage
+import pytest
 #poetry run pytest tests/test_whatsapp.py::test_send_msg -s
+@pytest.mark.skip(reason="solo para ejecucion manual")
 def test_send_msg():
     #pywhatkit.sendwhatmsg_instantly("+56975858852", "Este mensaje viene del pasado y se proyecta en el futuro", 10, True, 5)
     pywhatkit.sendwhatmsg_instantly("+56975858852", "Este mensaje viene del pasado y se proyecta en el futuro")
 
 #poetry run pytest tests/test_whatsapp.py::test_read_msg  -s
+@pytest.mark.skip(reason="solo para ejecucion manual")
 def test_read_msg():
     # Creating the driver (browser)
     driver = webdriver.Chrome()
@@ -56,6 +59,7 @@ def test_read_msg():
 
 #https://github.com/Fantaso/whatsapp-web
 #poetry run pytest tests/test_whatsapp.py::test_base -s
+@pytest.mark.skip(reason="no way of currently testing this")
 def test_base():
     # Creating the driver (browser)
     driver = webdriver.Chrome() 
