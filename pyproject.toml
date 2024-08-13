@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aia-read-svc"
-version = "0.3.2"
+version = "0.3.3"
 description = ""
 authors = ["Edgar Rodrigo Sanchez De Gracia <edgr.sanchez@mercadolibre.cl>"]
 readme = "README.md"

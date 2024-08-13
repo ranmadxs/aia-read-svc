@@ -7,6 +7,10 @@ runme:
 # RELEASE
 
 ```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
+[0.3.3] 13-ago-2024
+
+- 🔄 Update: aia-utils-0.3.1
+
 [0.3.2] 12-ago-2024
 
 - 🔄 Update: aia-utils-0.3.0
