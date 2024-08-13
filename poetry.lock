@@ -1,6 +1,6 @@
 [[package]]
 name = "aia-utils"
-version = "0.3.2"
+version = "0.3.3"
 description = ""
 category = "main"
 optional = false
@@ -1385,7 +1385,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-ena
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.11.2,<3.12"
-content-hash = "f754dbeb625f4583cad3df306c2bbb85577c4566c86d2bb47d653545dd7ddac0"
+content-hash = "d709398fd916289f99a96ec8c7cffbaba5290bf11e4495677cba46822d0dc1ac"
 
 [metadata.files]
 aia-utils = []
