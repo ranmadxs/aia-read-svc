@@ -29,7 +29,7 @@ class ReadSvc:
             print(str(msgDict["cmd"]))
             if msgDict["cmd"].upper() == "wh40k".upper():
                 logger.info("Llegó un mensaje de wh40k!")
-                self.wh40k.process(msgDict['semanticGraph'])
+                self.wh40k.process_wh40k_obj(msgDict['semanticGraph']['sentence'])
             if msgDict["cmd"].upper() == "READ_YAHOO_MAIL".upper():
                 logger.info("Llegó un mensaje de READ_YAHOO_MAIL!")
                 

@@ -59,7 +59,7 @@ class Warhammer40KService:
                     'word_count': len(token.split('-'))
                 }
             
-        self.logger.debug(token_list_resp)
+        #self.logger.debug(token_list_resp)
         return max_token
 
     def getUnitFromMsg(self, listNodes: List, countTokens: int) -> WH40K_Unit:
@@ -101,14 +101,43 @@ class Warhammer40KService:
         self.queueProducer.send(msg_str)
         self.queueProducer.flush()  
 
+    def process_wh40k_obj(self, sentence: str, edition: str = "wh40k10ed"):
+        ratio_compare: float = 0.51
+        self.logger.debug("Processing wh40kObj")
+        clean_sentence = sentence.replace("modo warhammer", "")
+        self.logger.debug(clean_sentence)
+        data = loadtxt('./resources/wh40k/wh40k_tokens.txt', dtype='str')
+        self.logger.debug(data)
+        faction_token = self.getKeyUnitFromMsg(data, clean_sentence)
+        # Limpiar faction_token de caracteres especiales y espacios solo al principio y al final
+        faction_token = faction_token.strip()
+        self.logger.debug(faction_token)
+        if faction_token is None:
+            return False
+        
+        keywordsUnits = self.getUnitListKeywords(faction_token, edition)
+        self.logger.debug(keywordsUnits['tokens_factions'])
+        unit_token = self.getKeyUnitFromMsg(keywordsUnits['tokens_factions'], clean_sentence)
+        
+        self.logger.info(unit_token)
+        prompt = f"me puedes dar las estadísticas base para "
+        unit_info = self.getUnitInformation(unit_token, faction_token, edition, clean_sentence)
+        
+        sentences = [{"msg": f"{unit_info}", "sound_in": "transition02.wav", "language": f"es"}]
+        self.sendMsg(sentences)
+        self.logger.debug(sentences)
+        return unit_info
+
     def process(self, wh40kObj: any, edition: str = "wh40k10ed"):
         ratio_compare: float = 0.51
         self.logger.debug("Processing wh40kObj")
+        clean_sentence = wh40kObj['sentence'].replace("modo warhammer", "")
+        self.logger.debug(clean_sentence)
         self.logger.debug(os.getcwd())
         data = loadtxt('./resources/wh40k/wh40k_tokens.txt', dtype='str')
         self.logger.debug(data)
         self.logger.debug(data.dtype)
-        faction_token = self.compareToken(data, wh40kObj['sentence'].replace("modo warhammer", ""), ratio_compare)
+        faction_token = self.compareToken(data, clean_sentence, ratio_compare)
         self.logger.info(faction_token)
         if faction_token is None:
             return False
@@ -141,11 +170,13 @@ class Warhammer40KService:
         return keywordFactions
 
     def getUnitListKeywords(self, faction: str, edition : str = 'wh40k10ed') -> List:
-        self.logger.debug("Getting faction getUnitListKeywords")
+        self.logger.debug(f"Getting faction getUnitListKeywords{faction}")
         urlTokensList = []
         respFaction = self.aiaWHRepo.findWh40kFaction(faction, edition)
+        self.logger.debug(respFaction)
         if (respFaction is not None) and (respFaction["_id"] is not None):
             urlTokensList.append(respFaction)
+            self.logger.debug("blablsblsdzlaldasldalsdl")
         else:
             response = requests.get(f"https://wahapedia.ru/{edition}/factions/{faction}/")
             print (response.status_code)            
@@ -171,11 +202,37 @@ class Warhammer40KService:
         #self.logger.debug(respFaction)
         return respFaction
 
-    def getUnitInformation(self, unit_code: str, faction: str, edition: str = 'wh40k10ed'):
+    def getKeyUnitFromMsg(self, list_units: List[str], msg: str) -> str:
+        self.logger.debug("Getting key unit from message")
+        prompt = f"Dada la siguiente lista {list_units}. dame sólo el elemento que mejor represente el mensaje {msg}, no añadas nada extra ni texto ni explicaciones, sólo dame el elemento de la lista"
+        client = AiaHttpClient()
+        data = {
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": prompt
+                        }
+                    ]
+                }
+            ]
+        }
+        response = client.post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+            params={"key": os.environ.get("GEMINI_API_KEY")},
+            data=json.dumps(data)
+        )
+        
+        if response.status_code == 200:
+            data = response.json()
+            if "candidates" in data and len(data["candidates"]) > 0:
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+        return None
+
+    def getUnitInformation(self, unit_code: str, faction: str, edition: str = 'wh40k10ed', prompt: str = None):
         self.logger.debug("Getting unit information")
         url = f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}"
-        prompt = f"me puedes dar las estadísticas base para {url}. (Solo la estadística en lenguaje natural)"
-        
+        prompt = f"{prompt} {url}. (No añadas explicaciones ni texto adicional y que tu respuesta no sea adornada)"
         client = AiaHttpClient()
         data = {
             "contents": [
