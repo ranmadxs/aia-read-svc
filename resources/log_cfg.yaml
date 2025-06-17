@@ -37,6 +37,11 @@ handlers:
         filename: ./target/application.log
  
 root:
- 
     level: DEBUG
     handlers: [console, rotate_day_file_handler]
+
+loggers:
+    pymongo:
+        level: ERROR
+        handlers: [console, rotate_day_file_handler]
+        propagate: false

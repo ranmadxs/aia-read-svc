@@ -6,8 +6,13 @@ runme:
 
 # RELEASE
 
-```bash {"id":"01HKVAHXZRTNKPYDCW81RW4SHF"}
-[0.3.5] 13-ago-2024
+[0.4.0] 16-jun-2025
+
+- ✨ Feature: Implemented HTTP client for Gemini API queries
+- 🔄 Update: Python version requirement to >=3.13,<3.14
+- 🔄 Update: aia-utils to version 0.4.0
+
+[0.3.5] 16-jun-2025
 
 - 🔄 Update: aia-utils-0.3.3
 
@@ -33,4 +38,4 @@ runme:
 
 - Feature add Docker Config
 - Feature: WH40K Wahapedia units, Yahoo Read Svc.
-```
+

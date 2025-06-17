@@ -1,3 +1,4 @@
+import pytest
 from dotenv import load_dotenv
 load_dotenv()
 from aia_read_svc.wh40kSvc import Warhammer40KService
@@ -40,14 +41,28 @@ def test_get_factions_attr():
     print("test_get_factions")
     wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'], "test", os.getenv("WH40K_IMG_FILES_PATH"))
     unit, unitImage = wh40kSvc.getUnitFactionAttr("space-marines", "Tactical-Squad")
-    if(unitImage is not None):
-        wh40kSvc.sendImgToDev(unitImage)
+    #if(unitImage is not None):
+        #wh40kSvc.sendImgToDev(unitImage)
     #logger.debug(unit)
 
 #poetry run pytest tests/test_wh40k.py::test_process -s
+@pytest.mark.skip(reason="esta pensando para funcionar con colas en ambiente local")
 def test_process():
     print("test_process")
     wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
     #testFile = currentPath + "/resources/test/semanticGraphWH40k.json"
     testFile = currentPath + "/resources/test/wh40k_ancient.json"
     wh40kSvc.process(getSemanticGraph(testFile))
+
+#poetry run pytest tests/test_wh40k.py::test_get_unit_information -s
+@pytest.mark.skip(reason="esta pensando para funcionar con colas en ambiente local")
+def test_get_unit_information():
+    print("test_get_unit_information")
+    wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
+    
+    # Test case: Get information for Lieutenant Titus
+    unit_info = wh40kSvc.getUnitInformation("Lieutenant-Titus", "space-marines", "wh40k10ed")
+    print("\nUnit Information:")
+    print(unit_info)
+    assert unit_info is not None
+    assert isinstance(unit_info, str)

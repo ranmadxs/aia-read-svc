@@ -8,7 +8,8 @@ from .model.wh40k_model import WH40K_Characteristic, WH40K_Unit, WH40K_Unit_Imag
 from .model.read_model import Speech
 from .model.wh40k_enum import WH40K_PROFILES
 from typing import List
-import Levenshtein as lev
+from rapidfuzz import fuzz
+from rapidfuzz.distance import Levenshtein
 from numpy import loadtxt
 import os
 import io
@@ -20,6 +21,7 @@ from aia_utils.img_utils import ImageUtils
 from aia_utils.Queue import QueueProducer
 from aia_utils.logs_cfg import config_logger
 import logging
+from aia_utils import AiaHttpClient
 
 class Warhammer40KService:
     def __init__(self, topic_producer: str, version: str = "v1", output_path='target'):
@@ -41,8 +43,8 @@ class Warhammer40KService:
         max_ratio = float(0.0)
         max_token = None
         for token in token_list:
-            distance = lev.distance(str(token), word)
-            ratio = float(lev.ratio(str(token), word))
+            distance = Levenshtein.distance(str(token), word)
+            ratio = float(fuzz.ratio(str(token), word)) / 100.0
             token_list_resp.append({
                 "token": token,
                 "distance": distance,
@@ -110,7 +112,7 @@ class Warhammer40KService:
         self.logger.info(faction_token)
         if faction_token is None:
             return False
-        factionKeys = self.getUnitListKeywords(faction_token['token'], edition)
+        #factionKeys = self.getUnitListKeywords(faction_token['token'], edition)
 
         #self.logger.debug(factionKeys['tokens_factions'])
         #self.logger.debug(wh40kObj['nodes'])
@@ -168,6 +170,35 @@ class Warhammer40KService:
             self.aiaWHRepo.insertWh40kFaction(respFaction)
         #self.logger.debug(respFaction)
         return respFaction
+
+    def getUnitInformation(self, unit_code: str, faction: str, edition: str = 'wh40k10ed'):
+        self.logger.debug("Getting unit information")
+        url = f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}"
+        prompt = f"me puedes dar las estadísticas base para {url}. (Solo la estadística en lenguaje natural)"
+        
+        client = AiaHttpClient()
+        data = {
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": prompt
+                        }
+                    ]
+                }
+            ]
+        }
+        response = client.post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+            params={"key": os.environ.get("GEMINI_API_KEY")},
+            data=json.dumps(data)
+        )
+        
+        if response.status_code == 200:
+            data = response.json()
+            if "candidates" in data and len(data["candidates"]) > 0:
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+        return None
 
     def getUnitFactionAttr(self, faction: str, unit_code: str, edition: str = 'wh40k10ed') -> WH40K_Unit:
         self.logger.debug("Getting unit faction attr")
