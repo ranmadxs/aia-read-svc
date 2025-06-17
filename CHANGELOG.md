@@ -6,7 +6,7 @@ runme:
 
 # RELEASE
 
-[0.4.0] 16-jun-2025
+[0.4.1] 16-jun-2025
 
 - ✨ Feature: Implemented HTTP client for Gemini API queries
 - 🔄 Update: Python version requirement to >=3.13,<3.14
