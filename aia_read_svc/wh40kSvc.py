@@ -101,25 +101,29 @@ class Warhammer40KService:
         self.queueProducer.send(msg_str)
         self.queueProducer.flush()  
 
-    def process_wh40k_obj(self, sentence: str, edition: str = "wh40k10ed"):
+    def get_faction_token_from_sentence(self, sentence: str, edition: str = "wh40k10ed", tokens_file: str = './resources/wh40k/wh40k_tokens.txt') -> tuple:
+        data = loadtxt(tokens_file, dtype='str')
+        self.logger.debug(data)
+        faction_token = self.getKeyUnitFromMsg(data, sentence)
+        if faction_token:
+            faction_token = faction_token.strip()
+        self.logger.debug(faction_token)
+        if faction_token is None:
+            return None, None
+        keywordsUnits = self.getUnitListKeywords(faction_token, edition)
+        self.logger.debug(keywordsUnits['tokens_factions'])
+        unit_token = self.getKeyUnitFromMsg(keywordsUnits['tokens_factions'], sentence)
+        self.logger.info(unit_token)
+        return faction_token, unit_token
+
+    def process_wh40k_obj(self, sentence: str, edition: str = "wh40k10ed", tokens_file: str = './resources/wh40k/wh40k_tokens.txt'):
         ratio_compare: float = 0.51
         self.logger.debug("Processing wh40kObj")
         clean_sentence = sentence.replace("modo warhammer", "")
         self.logger.debug(clean_sentence)
-        data = loadtxt('./resources/wh40k/wh40k_tokens.txt', dtype='str')
-        self.logger.debug(data)
-        faction_token = self.getKeyUnitFromMsg(data, clean_sentence)
-        # Limpiar faction_token de caracteres especiales y espacios solo al principio y al final
-        faction_token = faction_token.strip()
-        self.logger.debug(faction_token)
+        faction_token, unit_token = self.get_faction_token_from_sentence(clean_sentence, edition, tokens_file)
         if faction_token is None:
             return False
-        
-        keywordsUnits = self.getUnitListKeywords(faction_token, edition)
-        self.logger.debug(keywordsUnits['tokens_factions'])
-        unit_token = self.getKeyUnitFromMsg(keywordsUnits['tokens_factions'], clean_sentence)
-        
-        self.logger.info(unit_token)
         prompt = f"me puedes dar las estadísticas base para "
         unit_info = self.getUnitInformation(unit_token, faction_token, edition, clean_sentence)
         
@@ -232,7 +236,7 @@ class Warhammer40KService:
     def getUnitInformation(self, unit_code: str, faction: str, edition: str = 'wh40k10ed', prompt: str = None):
         self.logger.debug("Getting unit information")
         url = f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}"
-        prompt = f"{prompt} {url}. (No añadas explicaciones ni texto adicional y que tu respuesta no sea adornada)"
+        prompt = f"{prompt} {url}. (en un parrafo con lenguaje humano, No añadas explicaciones ni texto adicional y que tu respuesta no sea adornada y se limita a la url que te estoy entregando, los datos que necesito se encuentran dentro del div class='dsBannerWrap')"
         client = AiaHttpClient()
         data = {
             "contents": [
@@ -250,11 +254,33 @@ class Warhammer40KService:
             params={"key": os.environ.get("GEMINI_API_KEY")},
             data=json.dumps(data)
         )
+
+    def getUnitInformation2(self, unit_code: str, faction: str, edition: str = 'wh40k10ed', prompt: str = None):
+        CHATGPT_API_KEY = os.environ.get("CHATGPT_API_KEY")
+        http_client = AiaHttpClient()
+        self.logger.debug("Getting unit information")
+        url_wahapedia = f"https://wahapedia.ru/{edition}/factions/{faction}/{unit_code}"
+        prompt = f"{prompt} {url_wahapedia}. (en un parrafo con lenguaje humano, No añadas explicaciones ni texto adicional y que tu respuesta no sea adornada y se limita a la url que te estoy entregando, los datos que necesito se encuentran dentro del div class='dsBannerWrap')"
+
+        url = "https://api.openai.com/v1/completions"
+        headers = {
+            "Authorization": f"Bearer {CHATGPT_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "model": "gpt-3.5-turbo",
+                "messages": [
+      {
+        "role": "user",
+        "content": prompt,}]
+        }
+        
+        response = http_client.post(url, headers=headers, json=data)
         
         if response.status_code == 200:
-            data = response.json()
-            if "candidates" in data and len(data["candidates"]) > 0:
-                return data["candidates"][0]["content"]["parts"][0]["text"]
+            response_data = response.json()
+            if "choices" in response_data and len(response_data["choices"]) > 0:
+                return response_data["choices"][0]["text"]
         return None
 
     def getUnitFactionAttr(self, faction: str, unit_code: str, edition: str = 'wh40k10ed') -> WH40K_Unit:

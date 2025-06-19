@@ -6,6 +6,12 @@ runme:
 
 # RELEASE
 
+## [0.5.0] - 2025-06-19
+### Added/Changed/Fixed
+- ✨ Refactor: Encapsulated the logic for obtaining faction and unit tokens into a new method (get_faction_token_from_sentence)
+- ✨ Feature: get_faction_token_from_sentence and process_wh40k_obj now accept a custom tokens file as a parameter
+- 🛠️ Minor: Improved logging for token extraction
+
 [0.4.1] 16-jun-2025
 
 - ✨ Feature: Implemented HTTP client for Gemini API queries

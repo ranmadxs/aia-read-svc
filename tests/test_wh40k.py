@@ -80,6 +80,34 @@ def test_process3(mock_send_msg):
     assert 'language' in sent_message, "El mensaje debe contener el campo 'language'"
     assert sent_message['language'] == 'es', "El idioma debe ser 'es'"
 
+#poetry run pytest tests/test_wh40k.py::test_process_orks -s
+@patch('aia_read_svc.wh40kSvc.Warhammer40KService.sendMsg')
+def test_process_orks(mock_send_msg):
+    wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
+    prompt = "dame las estadìsticas de OC de los orkos de Ghazghkull"
+    result = wh40kSvc.process_wh40k_obj(prompt)
+    assert result is not None
+    mock_send_msg.assert_called_once()
+
+#poetry run pytest tests/test_wh40k.py::test_process_orks2 -s
+@patch('aia_read_svc.wh40kSvc.Warhammer40KService.sendMsg')
+def test_process_orks2(mock_send_msg):
+    wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
+    prompt = "dame un listado de todas las armas de los orkos de Ghazghkull"
+    result = wh40kSvc.process_wh40k_obj(prompt)
+    assert result is not None
+    mock_send_msg.assert_called_once()
+
+
+#poetry run pytest tests/test_wh40k.py::test_process6 -s
+@patch('aia_read_svc.wh40kSvc.Warhammer40KService.sendMsg')
+def test_process6(mock_send_msg):
+    wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
+    prompt = "dame las estadìsticas un teniente de los marines espaciales"
+    result = wh40kSvc.process_wh40k_obj(prompt)
+    assert result is not None
+    mock_send_msg.assert_called_once()
+
 #poetry run pytest tests/test_wh40k.py::test_process2 -s
 @patch('aia_read_svc.wh40kSvc.Warhammer40KService.sendMsg')
 def test_process2(mock_send_msg):
