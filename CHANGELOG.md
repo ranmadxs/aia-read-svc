@@ -6,6 +6,11 @@ runme:
 
 # RELEASE
 
+## [0.5.1] - 2025-06-19
+### Added/Changed/Fixed
+- ⬆️ Updated: aia-utils to 0.4.5 and rebuilt poetry.lock
+- 🔧 Patch: Python version restored to >=3.11.2,<3.14 for compatibility
+
 ## [0.5.0] - 2025-06-19
 ### Added/Changed/Fixed
 - ✨ Refactor: Encapsulated the logic for obtaining faction and unit tokens into a new method (get_faction_token_from_sentence)
