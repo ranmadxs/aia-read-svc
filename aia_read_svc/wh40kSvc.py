@@ -254,6 +254,12 @@ class Warhammer40KService:
             params={"key": os.environ.get("GEMINI_API_KEY")},
             data=json.dumps(data)
         )
+        
+        if response.status_code == 200:
+            data = response.json()
+            if "candidates" in data and len(data["candidates"]) > 0:
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+        return None
 
     def getUnitInformation2(self, unit_code: str, faction: str, edition: str = 'wh40k10ed', prompt: str = None):
         CHATGPT_API_KEY = os.environ.get("CHATGPT_API_KEY")

@@ -26,7 +26,7 @@ git push --delete origin $AIA_TAG_READ
 
 ```sh {"id":"01HJV2GKHFHRCW2MAYBX6DWF7V"}
 #set var entorno
-export AIA_TAG_READ=v0.5.0
+export AIA_TAG_READ=v0.6.0
 ```
 
 ```sh {"id":"01HJQ7F9RXZBJJ4YEQAAH1BXHZ"}
