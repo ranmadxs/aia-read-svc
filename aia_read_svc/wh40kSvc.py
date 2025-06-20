@@ -18,7 +18,7 @@ from .repositories.aiaRepo import AIAMessageRepository
 from dotenv import load_dotenv
 load_dotenv()
 from aia_utils.img_utils import ImageUtils
-from aia_utils.Queue import QueueProducer
+#from aia_utils.Queue import QueueProducer
 from aia_utils.logs_cfg import config_logger
 import logging
 from aia_utils import AiaHttpClient
@@ -30,8 +30,8 @@ class Warhammer40KService:
         self.logger = logging.getLogger(__name__)
         self.aiaWHRepo = AIAWH40KRepository(os.environ['MONGODB_URI'])
         self.aiaMsgRepo = AIAMessageRepository(os.environ['MONGODB_URI'])
-        self.queueProducer = QueueProducer(self.topic_producer, version, "aia-read-svc")
-        self.queueDevice = QueueProducer(os.environ['CLOUDKAFKA_TOPIC_DEVICE_PRODUCER'], version, "aia-read-svc")
+        #self.queueProducer = QueueProducer(self.topic_producer, version, "aia-read-svc")
+        #self.queueDevice = QueueProducer(os.environ['CLOUDKAFKA_TOPIC_DEVICE_PRODUCER'], version, "aia-read-svc")
         self.wahapedia_css = open("resources/wh40k/wahapedia.css", "r")
         self.wahapedia_css = self.wahapedia_css.read()
         self.output_path = output_path

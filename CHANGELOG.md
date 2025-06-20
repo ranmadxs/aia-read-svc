@@ -6,6 +6,10 @@ runme:
 
 # RELEASE
 
+## [0.6.2] - 2024-06-20
+### Added/Changed/Fixed
+- ⬆️ Patch: Bump de versión patch y actualización de referencias de versión en README.md y pyproject.toml.
+
 ## [0.6.1] - 2025-06-19
 ### Added/Changed/Fixed
 - 🐛 Fix: Corrección de imports relativos para repositories tras mover el directorio dentro de aia_read_svc.

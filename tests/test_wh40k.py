@@ -40,6 +40,13 @@ def test_getFactionsKeywords():
 def test_get_listKeys():
     print("test_get_listKeys")
     wh40kSvc = Warhammer40KService(os.environ['CLOUDKAFKA_TOPIC_PRODUCER'])
+    result = wh40kSvc.getUnitListKeywords("space-marines", "wh40k10ed")
+    assert isinstance(result, dict)
+    assert "faction" in result
+    assert "edition" in result
+    assert "tokens_factions" in result
+    assert isinstance(result["tokens_factions"], list)
+    assert result["faction"] == "space-marines"
     logger.debug(wh40kSvc.getUnitListKeywords("space-marines", "wh40k10ed"))
 
 #poetry run pytest tests/test_wh40k.py::test_get_factions_attr -s
