@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
-from aia_utils.Queue import QueueConsumer, QueueProducer
-from repositories.aiaRepo import AIAMessageRepository
+from .repositories.aiaRepo import AIAMessageRepository
 from .wh40kSvc import Warhammer40KService
 from aia_utils.logs_cfg import config_logger
 import logging

@@ -13,8 +13,8 @@ from rapidfuzz.distance import Levenshtein
 from numpy import loadtxt
 import os
 import io
-from repositories.aiaWh40kRepo import AIAWH40KRepository
-from repositories.aiaRepo import AIAMessageRepository
+from .repositories.aiaWh40kRepo import AIAWH40KRepository
+from .repositories.aiaRepo import AIAMessageRepository
 from dotenv import load_dotenv
 load_dotenv()
 from aia_utils.img_utils import ImageUtils

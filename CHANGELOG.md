@@ -6,6 +6,10 @@ runme:
 
 # RELEASE
 
+## [0.6.1] - 2025-06-19
+### Added/Changed/Fixed
+- 🐛 Fix: Corrección de imports relativos para repositories tras mover el directorio dentro de aia_read_svc.
+
 ## [0.6.0] - 2025-06-19
 ### Added/Changed/Fixed
 - 🚀 Nueva versión minor: tests unitarios de repositorios separados, comentarios de ejecución por test, y uso de mongomock para pruebas en memoria.

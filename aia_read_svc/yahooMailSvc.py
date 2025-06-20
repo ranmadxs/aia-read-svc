@@ -3,7 +3,7 @@
 import imaplib, email  # Library to interact with IMPAP server
 from email.header    import Header
 from email.mime.text import MIMEText
-from repositories.aiaRepo import AIAMessageRepository
+from .repositories.aiaRepo import AIAMessageRepository
 from email.header import decode_header
 from datetime import datetime
 import random
